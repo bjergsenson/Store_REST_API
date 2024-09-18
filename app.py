@@ -25,12 +25,12 @@ def create_item(name):
             return new_item, 201
     return {"message": "Store not found"}, 404  
 
-@app.get("/store/<string:name>")    # http://127.0.0.1:5000/store/<name>
-def get_store(name):
-    for store in stores:
-        if store["name"]==name:
-            return store, 201
-    return {"message": "Store not found"}, 404
+@app.get("/store/<string:store_id>")    # http://127.0.0.1:5000/store/<store_id>
+def get_store(store_id):
+    try:
+        return stores[store_id]
+    except KeyError:
+        return {"message": "Store not found"}, 404
 
 @app.get("/store/<string:name>/item")    # http://127.0.0.1:5000/store/<name>/item
 def get_item_in_store(name):
