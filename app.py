@@ -38,9 +38,9 @@ def get_store(store_id):
     except KeyError:
         return {"message": "Store not found"}, 404
 
-@app.get("/store/<string:name>/item")    # http://127.0.0.1:5000/store/<name>/item
-def get_item_in_store(name):
-    for store in stores:
-        if store["name"]==name:
-            return {"items": store["items"]}, 201
-    return {"message": "Store not found"}, 404
+@app.get("/item/<string:item_id>")    # http://127.0.0.1:5000/item/item_id
+def get_item(item_id):
+    try:
+        return items[item_id]
+    except KeyError:
+        return {"message": "Item not found"}, 404
