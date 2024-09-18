@@ -9,6 +9,10 @@ app = Flask(__name__)
 def get_stores():
     return{"stores" : list(stores.values())}
 
+@app.get("/item") # http://127.0.0.1:5000/item
+def get_items():
+    return{"items" : list(items.values())}
+
 @app.post("/store") # http://127.0.0.1:5000/store
 def create_store():
     store_data= request.get_json()
