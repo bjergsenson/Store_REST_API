@@ -1,3 +1,4 @@
+import uuid
 from flask import Flask, request
 from db import items, stores
 
@@ -10,10 +11,11 @@ def get_stores():
 
 @app.post("/store") # http://127.0.0.1:5000/store
 def create_store():
-    request_data= request.get_json()
-    new_store = {"name": request_data["name"], "items" : []}
-    stores.append(new_store)
-    return new_store, 201
+    store_data= request.get_json()
+    store_id =  uuid.uuid4().hex 
+    store = {**store_data, "id": store_id}
+    stores[store_id] = store
+    return store, 201
 
 @app.post("/store/<string:name>/item") # http://127.0.0.1:5000/store/<name>/item
 def create_item(name):
