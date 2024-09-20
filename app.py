@@ -49,6 +49,14 @@ def get_store(store_id):
     except KeyError:
         abort(404, message= "Store not found.")
 
+@app.delete("/store/<string:store_id>")    # http://127.0.0.1:5000/store/store_id
+def delete_store(store_id):
+    try:
+        del stores[store_id]
+        return {"message" : "Store deleted."}
+    except KeyError:
+        abort(404, message= "Store not found.")
+
 @app.get("/item/<string:item_id>")    # http://127.0.0.1:5000/item/item_id
 def get_item(item_id):
     try:
