@@ -10,6 +10,7 @@ blp = Blueprint("stores", __name__, description = "Operations on stores")
 
 @blp.route("/store/<string:store_id>")
 class Stores(MethodView):
+    @blp.response(200, StoreSchema)
     def get(self, store_id):  # http://127.0.0.1:5000/store/<store_id>
         try:
             return stores[store_id]
@@ -25,10 +26,12 @@ class Stores(MethodView):
 
 @blp.route("/store")
 class StoreList(MethodView):
+    @blp.response(200, StoreSchema(many=True))
     def get(self): # http://127.0.0.1:5000/store
-        return{"stores" : list(stores.values())}
+        return stores.values()
 
     @blp.arguments(StoreSchema)
+    @blp.response(201, StoreSchema)
     def post(self, store_data):
             for store in stores.values():
                 if store_data["name"] == store["name"]:
